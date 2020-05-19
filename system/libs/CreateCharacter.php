@@ -26,12 +26,18 @@ class CreateCharacter
 		if(empty($name))
 			$errors['name'] = 'Please enter a name for your character!';
 		else if(strlen($name) > $maxLength)
-			$errors['name'] = 'Name is too long. Max. length <b>'.$maxLength.'</b> letters.';
+			$errors['name'] = 'Name is too long. Max. lenght <b>'.$maxLength.'</b> letters.';
 		else if(strlen($name) < $minLength)
-			$errors['name'] = 'Name is too short. Min. length <b>'.$minLength.'</b> letters.';
+			$errors['name'] = 'Name is too short. Min. lenght <b>'.$minLength.'</b> letters.';
 		else {
 			if(!admin() && !Validator::newCharacterName($name)) {
 				$errors['name'] = Validator::getLastError();
+			}
+
+			$exist = new OTS_Player();
+			$exist->find($name);
+			if($exist->isLoaded()) {
+				$errors['name'] = 'Character with this name already exist.';
 			}
 		}
 
@@ -114,7 +120,7 @@ class CreateCharacter
 			return false;
 		}
 
-		global $db;
+		global $db, $twig;
 
 		if($sex == "0")
 			$char_to_copy->setLookType(136);
@@ -180,7 +186,7 @@ class CreateCharacter
 		}
 
 		$player->save();
-		$player->setCustomField('created', time());
+		$player->setCustomField("created", time());
 
 		$player = new OTS_Player();
 		$player->find($name);
@@ -203,7 +209,6 @@ class CreateCharacter
 		foreach($loaded_items_to_copy as $save_item)
 			$db->query("INSERT INTO `player_items` (`player_id` ,`pid` ,`sid` ,`itemtype`, `count`, `attributes`) VALUES ('".$player->getId()."', '".$save_item['pid']."', '".$save_item['sid']."', '".$save_item['itemtype']."', '".$save_item['count']."', '".$save_item['attributes']."');");
 
-		global $twig;
 		$twig->display('success.html.twig', array(
 			'title' => 'Character Created',
 			'description' => 'The character <b>' . $name . '</b> has been created.<br/>

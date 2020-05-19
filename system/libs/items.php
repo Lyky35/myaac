@@ -74,7 +74,7 @@ class Items
 
 	public static function get($id) {
 		self::load();
-		return isset(self::$items[$id]) ? self::$items[$id] : [];
+		return self::$items[$id];
 	}
 
 	public static function getDescription($id, $count = 1) {

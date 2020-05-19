@@ -74,21 +74,15 @@ abstract class OTS_Base_DB extends PDO implements IOTS_DB
         return $this->fieldName($this->prefix . $name);
     }
 
-	public function query($query)
-	{
-		$this->queries++;
-
+    public function query($query)
+    {
 		if($this->logged) {
-			$startTime = microtime(true);
+			$this->log .= $query . PHP_EOL;
 		}
 
-		$ret = parent::query($query);
-		if($this->logged) {
-			$totalTime = microtime(true) - $startTime;
-			$this->log .= round($totalTime, 4) . ' ms - ' . $query . PHP_EOL;
-		}
-
-		return $ret;
+        $this->queries++;
+		//echo $query . PHP_EOL;
+        return parent::query($query);
     }
 
 	public function select($table, $data)

@@ -1,10 +1,7 @@
 <?php
 // few things we'll need
 require '../common.php';
-
-if(file_exists(BASE . 'config.local.php')) {
-	require_once BASE . 'config.local.php';
-}
+require_once BASE . 'config.local.php';
 
 if(file_exists(BASE . 'install') && (!isset($config['installed']) || !$config['installed']))
 {

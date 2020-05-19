@@ -14,11 +14,11 @@ $title = "Creatures";
 ?>
 <script type="text/javascript" src="tools/js/tipped.js"></script>
 <link rel="stylesheet" type="text/css" href="tools/css/tipped.css"/>
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>tools/css/datatables.min.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>tools/css/jquery.dataTables.min.css">
 
 <script>
 	$(document).ready(function () {
-		Tipped.create('.item_image');
+		Tipped.create('.tooltip');
 	});
 </script>
 
@@ -146,7 +146,7 @@ if (empty($_REQUEST['creature'])) {
 				$name = getItemNameById($item['id']);
 				$tooltip = $name . '<br/>Chance: ' . round($item['chance'] / 1000, 2) . '%<br/>Max count: ' . $item['count'];
 
-				echo getItemImage($item['id']);
+				echo '<img src="' . $config['item_images_url'] . $item['id'] . '.gif" class="tooltip" title="' . $tooltip . '" width="32" height="32" border="0" alt=" ' . $name . '" />';
 				$i++;
 			}
 
@@ -170,4 +170,4 @@ if (empty($_REQUEST['creature'])) {
 
 </script>
 
-<script src="<?php echo BASE_URL; ?>tools/js/datatables.min.js"></script>
+<script src="<?php echo BASE_URL; ?>tools/js/jquery.dataTables.min.js"></script>

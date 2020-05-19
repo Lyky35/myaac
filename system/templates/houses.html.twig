@@ -75,7 +75,7 @@
                                             <td>
                                                 <form action="{{ getLink('houses/view') }}" method="post">
                                                     <input type="hidden" name="house" value="{{ house.name }}">
-                                                    {{ include('buttons.view.html.twig') }}
+                                                    <button name="View" alt="View" class="btn btn-secondary" width="120" height="18">View</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -141,12 +141,9 @@
 
                                     <tr bgcolor="{{ config.darkborder }}">
                                         <td valign="top">
-                                            <input type="radio" name="type" id="type_all" value=""{% if type is empty %} checked{% endif %}>
-                                            <label for="type"> all</label><br>
-                                            <input type="radio" name="type" id="type_houses" value="houses"{% if type == 'houses' %} checked{% endif %}>
-                                            <label for="type_houses"> houses and flats</label><br>
-                                            <input type="radio" name="type" id="type_guildhalls" value="guildhalls"{% if type == 'guildhalls' %} checked{% endif %}>
-                                            <label for="type_guildhalls"> guildhalls</label><br>
+                                            <input type="radio" name="type" value=""{% if type is empty %} checked{% endif %}> all<br>
+                                            <input type="radio" name="type" value="houses"{% if type == 'houses' %} checked{% endif %}> houses and flats<br>
+                                            <input type="radio" name="type" value="guildhalls"{% if type == 'guildhalls' %} checked{% endif %}> guildhalls<br>
                                         </td>
                                     </tr>
                                 </tbody>

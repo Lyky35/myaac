@@ -268,12 +268,6 @@ class Plugins {
 			}
 
 			if($continue) {
-				if(!$zip->extractTo(BASE)) { // "Real" Install
-					self::$error = 'There was a problem with extracting zip archive to base directory.';
-					$zip->close();
-					return false;
-				}
-
 				if (isset($plugin_json['install'])) {
 					if (file_exists(BASE . $plugin_json['install'])) {
 						$db->revalidateCache();
@@ -282,6 +276,12 @@ class Plugins {
 					}
 					else
 						self::$warnings[] = 'Cannot load install script. Your plugin might be not working correctly.';
+				}
+
+				if(!$zip->extractTo(BASE)) { // "Real" Install
+					self::$error = 'There was a problem with extracting zip archive to base directory.';
+					$zip->close();
+					return false;
 				}
 
 				$cache = Cache::getInstance();

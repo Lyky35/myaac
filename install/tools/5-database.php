@@ -58,11 +58,6 @@ else {
 	}
 }
 
-if(!$db->hasColumn('accounts', 'email')) {
-	if(query("ALTER TABLE `accounts` ADD `email` varchar(255) NOT NULL DEFAULT '';"))
-		success($locale['step_database_adding_field'] . ' accounts.email...');
-}
-
 if($db->hasColumn('accounts', 'key')) {
 	if(query("ALTER TABLE `accounts` MODIFY `key` VARCHAR(64) NOT NULL DEFAULT '';"))
 		success($locale['step_database_modifying_field'] . ' accounts.key...');
@@ -158,18 +153,9 @@ if(!$db->hasColumn('accounts', 'premium_points')) {
 		success($locale['step_database_adding_field'] . ' accounts.premium_points...');
 }
 
-if($db->hasColumn('guilds', 'checkdata')) {
-	if(query("ALTER TABLE `guilds` MODIFY `checkdata` INT NOT NULL DEFAULT 0;"))
-		success($locale['step_database_modifying_field'] . ' guilds.checkdata...');
-}
-
 if(!$db->hasColumn('guilds', 'motd')) {
 	if(query("ALTER TABLE `guilds` ADD `motd` VARCHAR(255) NOT NULL DEFAULT '';"))
 		success($locale['step_database_adding_field'] . ' guilds.motd...');
-}
-else {
-	if(query("ALTER TABLE `guilds` MODIFY `motd` VARCHAR(255) NOT NULL DEFAULT '';"))
-		success($locale['step_database_modifying_field'] . ' guilds.motd...');
 }
 
 if(!$db->hasColumn('guilds', 'description')) {

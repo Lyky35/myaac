@@ -43,7 +43,7 @@ else {
 
 $order = 'name';
 $spells = array();
-$spells_db = $db->query('SELECT * FROM `' . TABLE_PREFIX . 'spells` WHERE `hidden` != 1 AND `type` < 4 ORDER BY ' . $order . '');
+$spells_db = $db->query('SELECT * FROM `' . TABLE_PREFIX . 'spells` WHERE `hidden` != 1 AND `type` < 4 AND `level` > 0 ORDER BY ' . $order . '');
 
 if((string)$vocation_id != 'all') {
 	foreach($spells_db->fetchAll() as $spell) {
@@ -71,7 +71,7 @@ else {
 }
 
 ?>
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>tools/css/datatables.min.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>tools/css/jquery.dataTables.min.css">
 <?php
 $twig->display('spells.html.twig', array(
 	'canEdit' => $canEdit,
@@ -84,10 +84,12 @@ $twig->display('spells.html.twig', array(
 
 <script>
 	$(document).ready( function () {
+
 		$("#tb_instantSpells").DataTable();
 		$("#tb_conjureSpells").DataTable();
 		$("#tb_runeSpells").DataTable();
 	} );
 
 </script>
-<script src="<?php echo BASE_URL; ?>tools/js/datatables.min.js"></script>
+
+<script src="<?php echo BASE_URL; ?>tools/js/jquery.dataTables.min.js"></script>
